@@ -1,0 +1,114 @@
+# ── Data — never commit raw, interim, or processed data ──────────────────────
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+# External reference data — commit small lookups; ignore large rasters/binaries
+data/external/*.nc
+data/external/*.h5
+data/external/*.hdf5
+data/external/*.tif
+data/external/*.tiff
+data/external/*.shp
+data/external/*.dbf
+data/external/*.shx
+data/external/*.prj
+data/external/*.sbn
+data/external/*.sbx
+
+# ── Large geospatial and model files ─────────────────────────────────────────
+*.nc
+*.h5
+*.hdf5
+*.tif
+*.tiff
+*.img
+*.ecw
+*.shp
+*.dbf
+*.shx
+*.prj
+*.sbn
+*.sbx
+*.gdb/
+*.gpkg
+*.pkl
+*.pickle
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.parquet
+
+# ── Results and figures (reproducible from code) ─────────────────────────────
+results/*
+!results/.gitkeep
+figures/*
+!figures/.gitkeep
+
+# ── Credentials and secrets ───────────────────────────────────────────────────
+.env
+.env.*
+*.key
+*.pem
+secrets.yaml
+secrets.yml
+credentials.yaml
+credentials.json
+*_credentials.*
+config/local_*.yaml
+configs/local_*.yaml
+
+# ── Python build artifacts ────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+MANIFEST
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+.conda/
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Testing and coverage ──────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+
+# ── Linting and type checking ─────────────────────────────────────────────────
+.ruff_cache/
+.mypy_cache/
+
+# ── macOS and editors ─────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+logs/
+mlruns/

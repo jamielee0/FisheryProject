@@ -1,0 +1,702 @@
+# species_traits.yaml
+#
+# Source: Populated from Prompt 2 species/threshold analysis (2026-05-25).
+# Confidence classes: high = local/regional, species-specific, life-stage-relevant;
+#   medium = species-specific but nonlocal, indirect, or not exact life stage;
+#   low = generic, borrowed, model-derived, or sensitivity-only;
+#   unknown = do not parameterize without expert review.
+#
+# model_use values:
+#   primary_fixed_endpoint       — confirmed for use in main model endpoint construction
+#   primary_soft_threshold       — use as soft exposure threshold, not hard cutoff
+#   sensitivity_only             — use only in threshold sensitivity analysis
+#   sensitivity_only_nonlocal    — nonlocal source; sensitivity only
+#   soft_association             — association-based, not a threshold
+#   soft_growth_association      — lab growth association, not a field threshold
+#   growth_molt_timing_only      — for growth/molt phenology, not danger classification
+#   early_life_hatchery_sensitivity — hatchery/early-life lab only
+#   generic_screen               — generic regulatory or monitoring screen
+#   anomaly_or_percentile_predictor — use as anomaly or percentile covariate, not threshold
+#   broad_occurrence_only        — occurrence range only, not optimum
+#   qualitative_zone_covariate   — qualitative zone/habitat covariate
+#   do_not_use_until_confirmed   — await expert confirmation
+#   avoid_for_program195_primary — not suitable for Program 195 primary model
+#   productivity_covariate_not_stress — productivity covariate, not a stress threshold
+#   spawning_habitat_mask        — use for spawning-season habitat window only
+#   oyster_module_only           — only if oyster outcome data confirmed
+#
+# See also: threshold_table.csv for full row-level threshold data.
+# See also: endpoint_verification.md for endpoint status and conflicts.
+
+species:
+  blue_crab:
+    common_name: "blue crab"
+    scientific_name: "Callinectes sapidus"
+    model_role: "core"
+    life_stages:
+      recruit_juvenile:
+        endpoint_definitions:
+          program195_recruit:
+            operator: "<"
+            value: 127
+            unit: "mm carapace width"
+            source_label: "NCDMF_blue_crab_recruit_127mm_CW"
+            evidence_type: "expert/agency guideline"
+            confidence: "high"
+            model_use: "primary_fixed_endpoint"
+            verified: true
+        temperature_c:
+          min: 3
+          optimum_min: null
+          optimum_max: null
+          stress_high: null
+          lethal_high: 37
+          evidence:
+            - source_label: "blue_crab_HSI_temp_3_37C"
+              evidence_type: "model-derived / expert guideline"
+              confidence: "medium"
+              model_use: "sensitivity_only"
+        salinity_psu:
+          min: null
+          optimum_min: null
+          optimum_max: 5
+          stress_low: null
+          stress_high: null
+          evidence:
+            - source_label: "blue_crab_juvenile_nursery_lt5psu"
+              evidence_type: "field association / model-derived"
+              confidence: "medium"
+              model_use: "soft_association"
+        dissolved_oxygen_mg_l:
+          stress: 4.0
+          hypoxia: 2.0
+          severe: null
+          evidence:
+            - source_label: "blue_crab_DO_avoidance_lt4mgL"
+              evidence_type: "field association"
+              confidence: "medium"
+              model_use: "primary_soft_threshold"
+            - source_label: "blue_crab_severe_hypoxia_lt2mgL"
+              evidence_type: "field association"
+              confidence: "medium"
+              model_use: "severe_exposure"
+            - source_label: "blue_crab_local_capture_exclusion_lt6p5mgL"
+              evidence_type: "field association"
+              confidence: "low"
+              model_use: "sensitivity_only"
+              note: "Contradicts lower physiological/avoidance thresholds; do not use as hard cutoff"
+        turbidity:
+          threshold: null
+          unit: null
+          evidence: []
+        degree_days:
+          base_temp_c: 10.8
+          accumulation_required: 536
+          accumulation_unit: "degree C-days per intermolt"
+          uncertainty: "±231 degree C-days"
+          evidence:
+            - source_label: "blue_crab_growth_molt_10p8C_536DD"
+              evidence_type: "model-derived / laboratory + enclosure"
+              confidence: "medium"
+              model_use: "growth_molt_timing_only"
+              note: "Best-supported degree-day candidate in this species set"
+        seasonality:
+          spawning_months: ["Jun", "Jul", "Aug"]
+          recruitment_months: ["Jul", "Aug", "Sep", "Oct"]
+          evidence:
+            - source_label: "NC_blue_crab_spawning_recruitment"
+              evidence_type: "field association"
+              confidence: "medium"
+        notes: >
+          Best candidate for degree-day growth/molt modeling. DO thresholds conflict across
+          avoidance (~<4 mg/L), local capture association (~<6.5 mg/L, likely not physiological),
+          and generic severe hypoxia (<2 mg/L). Use soft thresholds and sensitivity analysis.
+          Selberg et al. 2001 (Neuse River) is the strongest local DO evidence.
+
+      spawning_adult:
+        temperature_c:
+          min: null
+          optimum_min: null
+          optimum_max: null
+          stress_high: null
+          lethal_high: null
+          evidence: []
+        salinity_psu:
+          min: 20
+          optimum_min: null
+          optimum_max: null
+          stress_low: null
+          stress_high: null
+          evidence:
+            - source_label: "blue_crab_egg_hatching_high_salinity_ge20psu"
+              evidence_type: "field association"
+              confidence: "low-to-medium"
+              model_use: "sensitivity_only_nonlocal"
+              note: "Non-NC Chesapeake source; use only for spawning-adult high-salinity dependence sensitivity"
+        dissolved_oxygen_mg_l:
+          stress: 4.0
+          hypoxia: 2.0
+          severe: null
+          evidence:
+            - source_label: "blue_crab_DO_avoidance_lt4mgL"
+              evidence_type: "field association"
+              confidence: "medium"
+              model_use: "primary_soft_threshold"
+        turbidity:
+          threshold: null
+          unit: null
+          evidence: []
+        degree_days:
+          base_temp_c: null
+          accumulation_required: null
+          evidence: []
+        seasonality:
+          spawning_months: ["Jun", "Jul", "Aug"]
+          recruitment_months: []
+          evidence:
+            - source_label: "NC_blue_crab_spawning_recruitment"
+              evidence_type: "field association"
+              confidence: "medium"
+        notes: >
+          High-salinity spawning dependence is biologically plausible but the numeric egg
+          threshold (<20 psu) is borrowed outside NC.
+
+  atlantic_croaker:
+    common_name: "Atlantic croaker"
+    scientific_name: "Micropogonias undulatus"
+    model_role: "core"
+    life_stages:
+      juvenile:
+        endpoint_definitions:
+          program195_june_juvenile_latest_candidate:
+            operator: "<"
+            value: 140
+            unit: "mm total length"
+            source_label: "NCDMF_croaker_2024_June_lt140mm_TL"
+            evidence_type: "expert/agency guideline"
+            confidence: "medium"
+            model_use: "provisional_primary_after_expert_confirmation"
+            verified: false
+            conflict_flag: true
+            conflict_note: "2022–2023 NCDMF reports used <160 mm TL. Confirm with NCDMF before finalizing."
+          program195_june_juvenile_alternate:
+            operator: "<"
+            value: 160
+            unit: "mm total length"
+            source_label: "NCDMF_croaker_2023_June_lt160mm_TL"
+            evidence_type: "expert/agency guideline"
+            confidence: "medium"
+            model_use: "sensitivity_only"
+            verified: false
+          program195_september_juvenile:
+            operator: "<"
+            value: 210
+            unit: "mm total length"
+            source_label: "NCDMF_croaker_Sept_lt210mm_TL"
+            evidence_type: "expert/agency guideline"
+            confidence: "high"
+            model_use: "primary_fixed_endpoint"
+            verified: true
+        temperature_c:
+          min: 9
+          optimum_min: 24
+          optimum_max: null
+          stress_high: 36
+          lethal_high: 38
+          evidence:
+            - source_label: "croaker_field_bottom_temp_9_32C_abundant_gt24C"
+              evidence_type: "field association"
+              confidence: "low-to-medium"
+              model_use: "primary_continuous_predictor"
+            - source_label: "croaker_SRAC_lethal_bounds_juvenile_adult"
+              evidence_type: "expert synthesis / laboratory"
+              confidence: "low-to-medium"
+              model_use: "sensitivity_only"
+        salinity_psu:
+          min: null
+          optimum_min: 5
+          optimum_max: 5
+          stress_low: null
+          stress_high: null
+          evidence:
+            - source_label: "croaker_juvenile_growth_5psu_lab"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              model_use: "soft_growth_association"
+              note: "Lab growth-favorable treatment; not field optimum"
+            - source_label: "croaker_low_salinity_growth_lt15_20psu"
+              evidence_type: "field/lab association"
+              confidence: "medium"
+              model_use: "soft_association"
+        dissolved_oxygen_mg_l:
+          stress: null
+          hypoxia: 2.0
+          severe: 1.5
+          evidence:
+            - source_label: "generic_hypoxia_lt2mgL"
+              evidence_type: "expert/agency guideline"
+              confidence: "low-to-medium"
+              model_use: "generic_screen"
+            - source_label: "croaker_neuse_field_exclusion_1p5mgL"
+              evidence_type: "field association"
+              confidence: "low-to-medium"
+              model_use: "sensitivity_only"
+              note: "Local but not a controlled threshold; use alongside generic 2 mg/L hypoxia screen"
+        turbidity:
+          threshold: null
+          unit: null
+          evidence: []
+        degree_days:
+          base_temp_c: null
+          accumulation_required: null
+          evidence: []
+          note: "No defensible NC estuarine degree-day accumulation requirement for croaker. Do not model."
+        seasonality:
+          spawning_months: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+          recruitment_months: ["Jun", "Sep"]
+          evidence:
+            - source_label: "ASMFC_croaker_spawning_Jul_Dec"
+              evidence_type: "expert/agency guideline"
+              confidence: "medium"
+              note: "Regional Mid-Atlantic/Southeast; verify NC-specific timing"
+        notes: >
+          CRITICAL: June juvenile cutoff is contradictory between 2023 (<160mm TL) and 2024
+          (<140mm TL) NCDMF sources. Do not finalize endpoint until expert-confirmed. Run both
+          as sensitivity. No NC-specific croaker DO threshold confirmed — use generic 2 mg/L
+          screen plus continuous DO covariate.
+
+      egg_larva:
+        temperature_c:
+          min: 19
+          optimum_min: 19
+          optimum_max: 24
+          stress_high: null
+          lethal_high: null
+          evidence:
+            - source_label: "croaker_egg_incubation_19_24C"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              note: "Hatchery/lab; not field optimum"
+        salinity_psu:
+          min: 30
+          optimum_min: null
+          optimum_max: null
+          stress_low: null
+          stress_high: null
+          evidence:
+            - source_label: "croaker_egg_buoyancy_ge30psu"
+              evidence_type: "expert/agency guideline / laboratory culture"
+              confidence: "medium"
+        dissolved_oxygen_mg_l:
+          stress: null
+          hypoxia: null
+          severe: null
+          evidence: []
+        turbidity:
+          threshold: null
+          unit: null
+          evidence: []
+        degree_days:
+          base_temp_c: null
+          accumulation_required: null
+          evidence: []
+        notes: "Egg/larval values are hatchery or regional spawning values, not Program 195 juvenile habitat thresholds."
+
+  spot:
+    common_name: "spot"
+    scientific_name: "Leiostomus xanthurus"
+    model_role: "core"
+    life_stages:
+      juvenile:
+        endpoint_definitions:
+          program195_june_juvenile:
+            operator: "<"
+            value: 140
+            unit: "mm fork length"
+            source_label: "NCDMF_spot_June_lt140mm_FL"
+            evidence_type: "expert/agency guideline"
+            confidence: "high"
+            model_use: "primary_fixed_endpoint"
+            verified: false
+            conflict_flag: true
+            conflict_note: >
+              UNIT CONFLICT. 2022/2024 NCDMF text references TL; 2023 NCDMF and figure captions
+              reference FL. 2022 update used TL after age-0/age-1 analysis. Confirm measurement
+              unit in raw data fields before applying this cutoff. Run FL vs TL sensitivity.
+          program195_september_juvenile:
+            operator: "<"
+            value: 190
+            unit: "mm total length"
+            source_label: "NCDMF_spot_Sept_lt190mm_TL"
+            evidence_type: "expert/agency guideline"
+            confidence: "high"
+            model_use: "primary_fixed_endpoint"
+            verified: true
+        temperature_c:
+          min: 1.2
+          optimum_min: 6
+          optimum_max: 20
+          stress_high: 35
+          lethal_high: 35.5
+          evidence:
+            - source_label: "spot_juvenile_preferred_6_20C_tolerable_1p2_35p5C"
+              evidence_type: "expert synthesis / field association"
+              confidence: "medium"
+              model_use: "primary_continuous_predictor"
+            - source_label: "spot_lower_lethal_4_5C_upper_gt35C"
+              evidence_type: "expert synthesis / laboratory"
+              confidence: "medium"
+              model_use: "sensitivity_only"
+        salinity_psu:
+          min: 0
+          optimum_min: null
+          optimum_max: 30
+          stress_low: 2
+          stress_high: null
+          evidence:
+            - source_label: "spot_juvenile_salinity_0_30psu"
+              evidence_type: "field association"
+              confidence: "medium"
+              model_use: "primary_continuous_predictor"
+            - source_label: "spot_survival_reduced_below_2psu"
+              evidence_type: "laboratory / expert synthesis"
+              confidence: "medium"
+              model_use: "soft_association"
+        dissolved_oxygen_mg_l:
+          stress: 4.5
+          hypoxia: 2.0
+          severe: 1.5
+          evidence:
+            - source_label: "spot_Neuse_hypoxia_le2mgL_Craig2023"
+              evidence_type: "field association"
+              confidence: "high"
+              model_use: "primary_soft_threshold"
+              note: "Craig et al. 2023 telemetry study — STRONGEST LOCAL EVIDENCE for spot DO"
+            - source_label: "spot_growth_reduction_1p5mgL"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              model_use: "severe_exposure"
+            - source_label: "spot_neuse_field_exclusion_4p5mgL"
+              evidence_type: "field association"
+              confidence: "low-to-medium"
+              model_use: "sensitivity_only"
+              note: "Soft avoidance/marginal habitat threshold only"
+        turbidity:
+          threshold: null
+          unit: null
+          evidence: []
+        degree_days:
+          base_temp_c: null
+          accumulation_required: null
+          evidence: []
+          note: "No defensible degree-day requirement found for spot. Do not model."
+        seasonality:
+          spawning_months: ["fall", "winter"]
+          recruitment_months: ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May"]
+          evidence:
+            - source_label: "spot_estuarine_ingress_Nov_May"
+              evidence_type: "field association"
+              confidence: "medium"
+        notes: >
+          Strong juvenile endpoint (June FL <140, Sept TL <190) and strong local DO hypoxia
+          evidence (Craig et al. 2023). June unit TL vs FL CONFLICT must be resolved before
+          endpoint construction. No defensible degree-day requirement.
+
+      egg_larva:
+        temperature_c:
+          min: 17.5
+          optimum_min: 17.5
+          optimum_max: 25
+          stress_high: null
+          lethal_high: null
+          evidence:
+            - source_label: "spot_egg_temp_17p5_25C"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              note: "Not a primary Program 195 endpoint"
+        salinity_psu:
+          min: null
+          optimum_min: null
+          optimum_max: null
+          stress_low: null
+          stress_high: null
+          evidence: []
+        dissolved_oxygen_mg_l:
+          stress: null
+          hypoxia: null
+          severe: null
+          evidence: []
+        turbidity:
+          threshold: null
+          unit: null
+          evidence: []
+        degree_days:
+          base_temp_c: null
+          accumulation_required: null
+          evidence: []
+        notes: "Egg values are not primary Program 195 endpoints."
+
+  southern_flounder:
+    common_name: "southern flounder"
+    scientific_name: "Paralichthys lethostigma"
+    model_role: "secondary_core_if_sample_size_supports"
+    life_stages:
+      juvenile:
+        endpoint_definitions:
+          program195_length_based_juvenile:
+            operator: null
+            value: null
+            unit: null
+            source_label: null
+            evidence_type: null
+            confidence: "unknown"
+            model_use: "do_not_use_until_confirmed"
+            verified: false
+            conflict_note: >
+              NO CONFIRMED Program 195 juvenile length cutoff found. NCDMF flounder reviews use
+              Program 120 for juvenile index in assessment context; P195 was additional data
+              in 2019 assessment but not used as JAI. Include as occurrence/CPUE/biomass only
+              unless NCDMF explicitly confirms a P195 length cutoff.
+        temperature_c:
+          min: null
+          optimum_min: 21
+          optimum_max: 21
+          stress_high: null
+          lethal_high: null
+          evidence:
+            - source_label: "southern_flounder_early_juvenile_optimum_21C"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              model_use: "early_life_hatchery_sensitivity"
+        salinity_psu:
+          min: 5
+          optimum_min: 5
+          optimum_max: 30
+          stress_low: 0
+          stress_high: null
+          evidence:
+            - source_label: "southern_flounder_juvenile_5_30psu_survival_vs_0psu"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              model_use: "sensitivity_only"
+            - source_label: "southern_flounder_adult_capture_0_36psu"
+              evidence_type: "field association / expert synthesis"
+              confidence: "low-to-medium"
+              model_use: "broad_occurrence_only"
+        dissolved_oxygen_mg_l:
+          stress: null
+          hypoxia: 2.0
+          severe: null
+          evidence:
+            - source_label: "generic_hypoxia_lt2mgL"
+              evidence_type: "expert/agency guideline"
+              confidence: "low"
+              model_use: "generic_screen_only"
+              note: "No strong NC species-specific DO threshold for southern flounder"
+        turbidity:
+          threshold: null
+          unit: null
+          evidence: []
+        degree_days:
+          base_temp_c: null
+          accumulation_required: null
+          evidence: []
+          note: >
+            Southern flounder larval experiments (13, 17, 21, 25 deg C) exist but no field
+            degree-day endpoint is validated. Treat as early-life thermal-rate module only.
+        seasonality:
+          spawning_months: ["Oct", "Nov", "Dec", "Jan", "Feb"]
+          recruitment_months: ["Jan", "Feb", "Mar", "Apr"]
+          evidence:
+            - source_label: "NC_southern_flounder_spawning_Oct_Feb_juvenile_migration_Jan_Apr"
+              evidence_type: "expert/agency guideline"
+              confidence: "medium"
+        notes: >
+          CONDITIONAL SPECIES. Include if Program 195 sample size supports occurrence/CPUE/biomass
+          endpoints. Do NOT invent a juvenile length cutoff. No species-specific NC DO threshold
+          confirmed — use generic DO screen only. Guindon & Miller 1995 (Pamlico Sound) provides
+          local nursery salinity evidence.
+
+      larva:
+        temperature_c:
+          min: 13
+          optimum_min: 17
+          optimum_max: 17
+          stress_high: null
+          lethal_high: null
+          evidence:
+            - source_label: "southern_flounder_larval_optimum_17C"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              model_use: "early_life_hatchery_sensitivity"
+            - source_label: "southern_flounder_hatch_temp_experiment_13_17_21_25C"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              model_use: "early_life_hatchery_sensitivity"
+        notes: "Thermal-rate data exist but field degree-day habitat modeling is not yet supported."
+
+  atlantic_menhaden:
+    common_name: "Atlantic menhaden"
+    scientific_name: "Brevoortia tyrannus"
+    model_role: "secondary_only_with_appropriate_endpoint"
+    status: "EXCLUDED from first Program 195-centered paper"
+    life_stages:
+      juvenile:
+        endpoint_definitions:
+          program195_endpoint:
+            operator: null
+            value: null
+            unit: null
+            source_label: null
+            evidence_type: null
+            confidence: "unknown"
+            model_use: "avoid_for_program195_primary_model"
+            verified: false
+            note: >
+              Do not use as a core Program 195 demersal endpoint unless Program 915, Program 120,
+              seine, plankton, or menhaden-specific data are available. Menhaden biology is
+              relevant but demersal trawl catchability and endpoint definition are the limiting issues.
+        dissolved_oxygen_mg_l:
+          stress: null
+          hypoxia: 2.0
+          severe: 1.5
+          evidence:
+            - source_label: "generic_hypoxia_lt2mgL"
+              evidence_type: "expert/agency guideline"
+              confidence: "low-to-medium"
+            - source_label: "menhaden_growth_reduction_1p5mgL"
+              evidence_type: "laboratory tolerance"
+              confidence: "medium"
+              model_use: "severe_growth_stress"
+            - source_label: "menhaden_acute_survival_0p9_1p2mgL"
+              evidence_type: "laboratory tolerance"
+              confidence: "low-to-medium"
+              model_use: "sensitivity_only_temperature_dependent"
+        chlorophyll:
+          threshold: null
+          unit: null
+          evidence:
+            - source_label: "menhaden_phytoplankton_productivity_relationship"
+              evidence_type: "field association / model-derived"
+              confidence: "medium"
+              model_use: "productivity_covariate_not_stress_threshold"
+        notes: "EXCLUDED from first paper."
+
+  eastern_oyster:
+    common_name: "eastern oyster"
+    scientific_name: "Crassostrea virginica"
+    model_role: "separate_module_only_if_outcome_data_are_strong"
+    status: "SEPARATE MODULE ONLY — do not include in primary Program 195 analysis"
+    life_stages:
+      spat:
+        temperature_c:
+          min: 17.5
+          optimum_min: null
+          optimum_max: null
+          stress_high: null
+          lethal_high: null
+          evidence:
+            - source_label: "oyster_larval_growth_min_17p5C"
+              evidence_type: "expert synthesis"
+              confidence: "low"
+              model_use: "sensitivity_only"
+        salinity_psu:
+          min: null
+          optimum_min: 15
+          optimum_max: 22.5
+          stress_low: 6
+          stress_high: null
+          evidence:
+            - source_label: "oyster_spat_salinity_15_22p5psu"
+              evidence_type: "laboratory / field association"
+              confidence: "low-to-medium"
+              model_use: "oyster_module_only"
+            - source_label: "oyster_HSI_salinity_lt6_stress"
+              evidence_type: "model-derived / expert synthesis"
+              confidence: "medium"
+              model_use: "oyster_module_only"
+        dissolved_oxygen_mg_l:
+          stress: 3
+          hypoxia: 2
+          severe: null
+          evidence:
+            - source_label: "oyster_aquaculture_DO_ge3mgL"
+              evidence_type: "expert guideline"
+              confidence: "low-to-medium"
+              model_use: "oyster_module_only"
+        turbidity:
+          threshold: null
+          unit: null
+          evidence:
+            - source_label: "oyster_spat_sediment_settlement_reduction"
+              evidence_type: "laboratory / field experiment"
+              confidence: "low-to-medium"
+              model_use: "qualitative_sedimentation_risk"
+        seasonality:
+          spawning_months: ["Jun", "Aug"]
+          note: "NC spawning peaks at 20 deg C (June) and 25 deg C (August) — NCDMF 2023 Eastern Oyster Review"
+          spawning_temp_peaks_c: [20, 25]
+          evidence:
+            - source_label: "NC_oyster_spawning_peaks_20C_June_25C_Aug"
+              evidence_type: "expert/agency guideline"
+              confidence: "high"
+        notes: >
+          Separate module only. Include only if oyster spat, mortality, growth, reef condition,
+          or restoration-site survival outcomes are confirmed. Do not mix with Program 195
+          trawl-species analysis. NC spawning temperature peaks are high-confidence local sources.
+
+      adult:
+        temperature_c:
+          min: null
+          optimum_min: 20
+          optimum_max: 28
+          stress_high: null
+          lethal_high: null
+          evidence:
+            - source_label: "oyster_aquaculture_temp_20_28C"
+              evidence_type: "expert guideline"
+              confidence: "low-to-medium"
+              model_use: "sensitivity_only"
+            - source_label: "NC_oyster_spawning_peaks_20C_June_25C_Aug"
+              evidence_type: "expert/agency guideline"
+              confidence: "high"
+              model_use: "spawning_phenology"
+        salinity_psu:
+          min: 7
+          optimum_min: 12
+          optimum_max: 27
+          stress_low: 6
+          stress_high: null
+          evidence:
+            - source_label: "oyster_HSI_salinity_12_27_normal_7_12_slow_lt6_stress"
+              evidence_type: "model-derived / expert synthesis"
+              confidence: "medium"
+              model_use: "oyster_module_only"
+        dissolved_oxygen_mg_l:
+          stress: 3
+          hypoxia: 2
+          severe: null
+          evidence:
+            - source_label: "oyster_aquaculture_DO_ge3mgL"
+              evidence_type: "expert guideline"
+              confidence: "low-to-medium"
+              model_use: "oyster_module_only"
+        notes: >
+          Oyster thresholds are strong enough for a separate oyster module, but not for mixing
+          with trawl-species Program 195 endpoints.
+
+global_model_screens:
+  dissolved_oxygen_mg_l:
+    normal_nc_tidal_saltwater_screen: 5.0
+    generic_hypoxia: 2.0
+    model_use: "covariate_screen_not_species_threshold"
+    source: "NC_water_quality_standards_15A_NCAC_02B; NOAA_NCCOS_hypoxia"
+  pH:
+    nc_tidal_saltwater_screen_min: 6.8
+    nc_tidal_saltwater_screen_max: 8.5
+    model_use: "screen_or_anomaly_only"
+    source: "NC_water_quality_standards_15A_NCAC_02B"
+  chlorophyll_a_ug_l:
+    nc_bloom_eutrophication_screen: 40
+    model_use: "bloom/anomaly covariate, not direct species mortality threshold"
+    source: "NC_chlorophyll_criterion_Neuse_ModMon"
