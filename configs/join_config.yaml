@@ -1,0 +1,12 @@
+# PLACEHOLDER: no joins or spatial-temporal interpolation have been implemented.
+version: "0.1.0"
+status: "placeholder_no_joins_constructed"
+joins: []
+requirements:
+  - "Define train-fold-only interpolation rules before joining dynamic covariates."
+  - "Record surface, bottom, or depth-matched observation type for every water-quality feature."
+  - "Document spatial and temporal support for each joined covariate."
+leakage_controls:
+  prohibit_future_observations_in_training_folds: true
+  require_fold_specific_fit_transform: true
+  require_join_provenance: true

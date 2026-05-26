@@ -1,9 +1,9 @@
-species,life_stage,variable,threshold_type,value,units,source_label,evidence_type,confidence,model_use,verified,notes
 # POPULATED from Prompt 2 species/threshold analysis (2026-05-25).
 # verified=TRUE only for high-confidence official NC sources with no known conflicts.
 # All thresholds with verified=FALSE require primary literature check before hard-threshold use.
 # See CLAIM_BOUNDARIES.md: generic thresholds are NOT species-specific lethal thresholds.
 # See species_traits.yaml for structured threshold data; see endpoint_verification.md for endpoint status.
+species,life_stage,variable,threshold_type,value,units,source_label,evidence_type,confidence,model_use,verified,notes
 multispecies_program195,survey_endpoint,sampling_window,survey_months,"June and September",months,SEAMAP_Program195_NCDMF,expert/agency guideline,high,metadata_only,TRUE,"Use only for Program 195-aligned endpoints. Annual design: 54 grids/month in June and September."
 multispecies_program195,survey_endpoint,sampling_design,annual_grid_target,"54 grids/month; 108 grids/year",grids,SEAMAP_Program195_NCDMF,expert/agency guideline,high,metadata_only,TRUE,"Useful for effort and validation metadata."
 multispecies,all,dissolved_oxygen,nc_tidal_saltwater_screen,>=5.0,mg/L,NC_water_quality_standards_15A_NCAC_02B,expert/agency guideline,medium,sensitivity_only,FALSE,"Regulatory screen not a species-specific biological threshold."

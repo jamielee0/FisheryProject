@@ -1,7 +1,9 @@
-# CLAUDE.md — Trees to Seas: Dynamic Habitat Stress Exposure for NC Estuarine Fisheries
+# CLAUDE.md - Legacy Agent Instructions
 
-This file is the **binding instruction set** for every Claude Code session in this repository.
-Read it in full before writing a single line of code, analysis, or text.
+This file is retained for historical continuity. `AGENTS.md` is the active
+Codex instruction set for this repository. Preserve the scientific constraints
+below unless they are intentionally migrated into `AGENTS.md` or another
+Codex-facing project file.
 
 ---
 

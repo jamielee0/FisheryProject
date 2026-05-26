@@ -1,0 +1,41 @@
+# PLACEHOLDER: validation design only; no fold assignments have been generated.
+version: "0.1.0"
+status: "placeholder_no_fold_assignments_generated"
+temporal_holdout:
+  train_years:
+    start: 1995
+    end: 2016
+  validation_years:
+    start: 2017
+    end: 2019
+  test_years:
+    start: 2022
+    end: 2024
+  sensitivity_years:
+    start: 2020
+    end: 2021
+    treatments:
+      - "included"
+      - "excluded"
+      - "flagged_separately"
+rolling_origin_folds:
+  - fold_id: 1
+    train_years: "1995-2005"
+    test_years: "2006-2009"
+  - fold_id: 2
+    train_years: "1995-2009"
+    test_years: "2010-2013"
+  - fold_id: 3
+    train_years: "1995-2013"
+    test_years: "2014-2017"
+  - fold_id: 4
+    train_years: "1995-2017"
+    test_years: "2018-2024"
+required_validation:
+  - "temporal_holdout"
+  - "spatial_holdout"
+  - "event_holdout"
+  - "ablation_study"
+  - "calibration"
+  - "uncertainty"
+  - "leakage_audit"

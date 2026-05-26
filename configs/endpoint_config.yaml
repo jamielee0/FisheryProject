@@ -1,0 +1,18 @@
+# PLACEHOLDER: endpoint rules only; no endpoint data have been constructed.
+version: "0.1.0"
+status: "placeholder_no_endpoints_constructed"
+endpoint_source: "endpoint_verification.md"
+primary_species:
+  - "blue_crab"
+  - "atlantic_croaker"
+  - "spot"
+conditional_species:
+  southern_flounder: "occurrence_cpue_biomass_only_until_program195_juvenile_endpoint_confirmed"
+excluded_first_paper:
+  - "atlantic_menhaden"
+separate_module_only:
+  - "eastern_oyster"
+unresolved_endpoint_conflicts:
+  - "atlantic_croaker_june_juvenile_cutoff"
+  - "spot_june_length_unit"
+  - "southern_flounder_program195_juvenile_endpoint"

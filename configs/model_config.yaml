@@ -1,0 +1,16 @@
+# PLACEHOLDER: no models have been configured or run.
+version: "0.1.0"
+status: "placeholder_no_models_run"
+model_ladder:
+  model_a: "static_survey_baseline"
+  model_b: "dynamic_water_quality_model"
+  model_c: "species_specific_stress_exposure_model"
+  model_d: "land_to_sea_incremental_predictor_model"
+  benchmark: "interpretable_boosted_tree_or_random_forest"
+random_seed: null
+models: []
+logging_requirements:
+  - "random_seed"
+  - "data_hash"
+  - "split_strategy"
+  - "fold_id"

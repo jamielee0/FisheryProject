@@ -1,0 +1,8 @@
+# PLACEHOLDER: no data sources have been ingested.
+version: "0.1.0"
+status: "placeholder_no_data_ingested"
+sources: []
+required_documentation:
+  - "Document each source in SOURCE_QUALITY_AUDIT.md before ingestion."
+  - "Record access date, provider, temporal coverage, spatial coverage, QA flags, and observation depth."
+  - "Do not commit raw, interim, or processed data files."

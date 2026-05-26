@@ -1,54 +1,57 @@
-# ── Data — never commit raw, interim, or processed data ──────────────────────
+# Data: never commit raw, interim, or processed data.
 data/raw/*
 !data/raw/.gitkeep
 data/interim/*
 !data/interim/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
-# External reference data — commit small lookups; ignore large rasters/binaries
-data/external/*.nc
-data/external/*.h5
-data/external/*.hdf5
-data/external/*.tif
-data/external/*.tiff
-data/external/*.shp
-data/external/*.dbf
-data/external/*.shx
-data/external/*.prj
-data/external/*.sbn
-data/external/*.sbx
 
-# ── Large geospatial and model files ─────────────────────────────────────────
-*.nc
-*.h5
-*.hdf5
+# Results and figures: reproducible outputs, not source files.
+results/*
+!results/.gitkeep
+figures/*
+!figures/.gitkeep
+
+# Large geospatial and raster/vector files.
 *.tif
 *.tiff
 *.img
 *.ecw
+*.vrt
+*.asc
+*.grd
 *.shp
-*.dbf
 *.shx
+*.dbf
 *.prj
 *.sbn
 *.sbx
-*.gdb/
+*.cpg
+*.qpj
 *.gpkg
+*.fgb
+*.geojsonl
+*.gdb/
+
+# Columnar and scientific binary outputs.
+*.parquet
+*.geoparquet
+*.nc
+*.nc4
+*.cdf
+*.h5
+*.hdf5
+*.zarr/
+
+# Model artifacts and serialized objects.
 *.pkl
 *.pickle
 *.joblib
 *.pt
 *.pth
 *.onnx
-*.parquet
 
-# ── Results and figures (reproducible from code) ─────────────────────────────
-results/*
-!results/.gitkeep
-figures/*
-!figures/.gitkeep
-
-# ── Credentials and secrets ───────────────────────────────────────────────────
+# Credentials and local secrets.
 .env
 .env.*
 *.key
@@ -56,47 +59,46 @@ figures/*
 secrets.yaml
 secrets.yml
 credentials.yaml
+credentials.yml
 credentials.json
 *_credentials.*
 config/local_*.yaml
 configs/local_*.yaml
 
-# ── Python build artifacts ────────────────────────────────────────────────────
+# Python caches and build artifacts.
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 *.egg
 *.egg-info/
+.eggs/
 dist/
 build/
-.eggs/
 *.whl
 MANIFEST
 
-# ── Virtual environments ──────────────────────────────────────────────────────
+# Virtual environments.
 .venv/
 venv/
 env/
 ENV/
 .conda/
 
-# ── Jupyter ───────────────────────────────────────────────────────────────────
+# Jupyter.
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# ── Testing and coverage ──────────────────────────────────────────────────────
+# Testing, coverage, linting, and type checking.
 .pytest_cache/
 .coverage
 coverage.xml
 htmlcov/
 .tox/
-
-# ── Linting and type checking ─────────────────────────────────────────────────
 .ruff_cache/
 .mypy_cache/
 
-# ── macOS and editors ─────────────────────────────────────────────────────────
+# Editors and operating-system files.
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -108,7 +110,7 @@ Thumbs.db
 .vscode/
 *.code-workspace
 
-# ── Logs ──────────────────────────────────────────────────────────────────────
+# Logs.
 *.log
 logs/
 mlruns/

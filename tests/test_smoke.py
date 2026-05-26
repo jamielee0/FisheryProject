@@ -1,10 +1,14 @@
-"""Smoke tests — verify the package installs and sub-packages are importable.
+"""Smoke tests for repository parseability and package importability."""
 
-These tests do not require any data files.
-"""
+from __future__ import annotations
 
+import csv
 import importlib
+from pathlib import Path
 
+import yaml
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 SUBPACKAGES = [
     "trees_to_seas",
@@ -20,60 +24,119 @@ SUBPACKAGES = [
     "trees_to_seas.utils",
 ]
 
+REQUIRED_THRESHOLD_COLUMNS = {
+    "species",
+    "life_stage",
+    "variable",
+    "threshold_type",
+    "value",
+    "units",
+    "source_label",
+    "evidence_type",
+    "confidence",
+    "model_use",
+    "verified",
+    "notes",
+}
 
-def test_package_importable():
+REQUIRED_SPECIES = {
+    "blue_crab",
+    "atlantic_croaker",
+    "spot",
+    "southern_flounder",
+}
+
+REQUIRED_CONFIGS = [
+    "configs/data_sources.yaml",
+    "configs/model_config.yaml",
+    "configs/validation_config.yaml",
+    "configs/endpoint_config.yaml",
+    "configs/threshold_config.yaml",
+    "configs/feature_config.yaml",
+    "configs/join_config.yaml",
+]
+
+REQUIRED_METADATA_TEMPLATES = [
+    "metadata/data_inventory.csv",
+    "metadata/provenance_log.csv",
+    "metadata/data_dictionary.csv",
+    "metadata/validation_folds.csv",
+    "metadata/source_quality_audit.csv",
+    "metadata/decision_log.csv",
+]
+
+
+def test_package_importable() -> None:
     import trees_to_seas
 
     assert trees_to_seas.__version__ == "0.1.0"
 
 
-def test_all_subpackages_importable():
+def test_all_current_subpackages_importable() -> None:
     for name in SUBPACKAGES:
-        mod = importlib.import_module(name)
-        assert mod is not None, f"Failed to import {name}"
+        module = importlib.import_module(name)
+        assert module is not None
 
 
-def test_primary_species_in_yaml():
-    """species_traits.yaml must contain all primary and conditional species."""
-    import yaml
-    from pathlib import Path
-
-    traits_path = Path(__file__).parents[1] / "species_traits.yaml"
+def test_species_traits_yaml_exists_parses_and_has_required_species() -> None:
+    traits_path = REPO_ROOT / "species_traits.yaml"
     assert traits_path.exists(), "species_traits.yaml not found"
 
-    with traits_path.open() as f:
-        data = yaml.safe_load(f)
+    with traits_path.open(encoding="utf-8") as file:
+        data = yaml.safe_load(file)
 
-    species = data.get("species", {})
-    required = {"blue_crab", "atlantic_croaker", "spot", "southern_flounder"}
-    missing = required - set(species.keys())
-    assert not missing, f"Missing species in species_traits.yaml: {missing}"
+    assert isinstance(data, dict)
+    assert "species_traits" in data, (
+        "species_traits.yaml must use top-level key 'species_traits'. "
+        "Older code that expected 'species' should be updated for this schema."
+    )
+    species_traits = data["species_traits"]
+    assert isinstance(species_traits, dict)
+
+    missing = REQUIRED_SPECIES.difference(species_traits)
+    assert not missing, f"Missing species in species_traits.yaml: {sorted(missing)}"
 
 
-def test_threshold_table_has_header():
-    """threshold_table.csv must exist and have the expected header columns."""
-    from pathlib import Path
-
-    table_path = Path(__file__).parents[1] / "threshold_table.csv"
+def test_threshold_table_csv_exists_parses_and_has_required_columns() -> None:
+    table_path = REPO_ROOT / "threshold_table.csv"
     assert table_path.exists(), "threshold_table.csv not found"
 
-    with table_path.open() as f:
-        lines = [line.strip() for line in f if not line.startswith("#")]
+    with table_path.open(newline="", encoding="utf-8") as file:
+        rows = [row for row in file if row.strip() and not row.lstrip().startswith("#")]
 
-    assert lines, "threshold_table.csv has no non-comment lines"
-    header = lines[0].split(",")
-    required_cols = {"species", "variable", "threshold_type", "value", "verified"}
-    missing_cols = required_cols - set(header)
-    assert not missing_cols, f"threshold_table.csv missing columns: {missing_cols}"
-
-
-def test_claim_boundaries_exists():
-    from pathlib import Path
-
-    assert (Path(__file__).parents[1] / "CLAIM_BOUNDARIES.md").exists()
+    reader = csv.DictReader(rows)
+    assert reader.fieldnames is not None, "threshold_table.csv has no header"
+    missing_columns = REQUIRED_THRESHOLD_COLUMNS.difference(reader.fieldnames)
+    assert not missing_columns, (
+        "threshold_table.csv missing required columns: "
+        f"{sorted(missing_columns)}"
+    )
+    assert any(reader), "threshold_table.csv has no data rows"
 
 
-def test_endpoint_verification_exists():
-    from pathlib import Path
+def test_required_scientific_boundary_files_exist() -> None:
+    required_files = [
+        "CLAIM_BOUNDARIES.md",
+        "endpoint_verification.md",
+        "AGENTS.md",
+    ]
+    missing = [path for path in required_files if not (REPO_ROOT / path).exists()]
+    assert not missing, f"Missing required project files: {missing}"
 
-    assert (Path(__file__).parents[1] / "endpoint_verification.md").exists()
+
+def test_config_placeholders_exist_and_parse() -> None:
+    for relative_path in REQUIRED_CONFIGS:
+        path = REPO_ROOT / relative_path
+        assert path.exists(), f"Missing config placeholder: {relative_path}"
+        with path.open(encoding="utf-8") as file:
+            parsed = yaml.safe_load(file)
+        assert isinstance(parsed, dict), f"Config did not parse as a mapping: {relative_path}"
+
+
+def test_metadata_templates_exist_and_have_headers() -> None:
+    for relative_path in REQUIRED_METADATA_TEMPLATES:
+        path = REPO_ROOT / relative_path
+        assert path.exists(), f"Missing metadata template: {relative_path}"
+        with path.open(newline="", encoding="utf-8") as file:
+            header = next(csv.reader(file), None)
+        assert header, f"Metadata template has no header: {relative_path}"

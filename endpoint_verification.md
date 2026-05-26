@@ -2,7 +2,7 @@
 ## Survey Endpoint Verification Log — Trees to Seas
 
 **Purpose:** Track verification status of every species-survey endpoint before it is used in
-model code. Claude Code must read this file before writing endpoint-specific code.
+model code. Codex must read this file before writing endpoint-specific code.
 
 **Last updated:** 2026-05-25 (populated from Prompts 2 + 3)
 

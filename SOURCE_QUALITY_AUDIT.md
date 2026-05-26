@@ -3,11 +3,11 @@
 
 **Source:** Populated from Prompts 3 Outputs 3 and 5 (2026-05-25).
 **Purpose:** Every data source used in this project must be documented here before being ingested.
-Claude Code must add a new source to this file before writing ingest code.
+Codex must add a new source to this file before writing ingest code.
 
 **Critical flag for all sources:** Confirm whether each observation is surface or bottom.
 This is the single most important QA step for demersal species (blue crab, croaker, spot, flounder).
-See CLAUDE.md §6 Publication Risk #5: surface water quality must never be treated as bottom habitat.
+See AGENTS.md Core Publication Risk #5: surface water quality must never be treated as bottom habitat.
 
 ---
 

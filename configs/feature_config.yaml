@@ -1,0 +1,14 @@
+# PLACEHOLDER: no feature engineering has been implemented.
+version: "0.1.0"
+status: "placeholder_no_features_constructed"
+feature_groups: []
+publication_risk_flags:
+  - "environmental_interpolation_leakage"
+  - "spatial_autocorrelation"
+  - "station_memorization"
+  - "sparse_bottom_water_observations"
+  - "surface_water_quality_treated_as_bottom_habitat"
+  - "weak_thresholds_used_as_hard_biological_truth"
+  - "croaker_june_juvenile_cutoff_conflict"
+  - "spot_june_length_unit_conflict"
+  - "southern_flounder_juvenile_endpoint_uncertainty"

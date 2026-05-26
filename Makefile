@@ -1,28 +1,27 @@
-.PHONY: install test lint clean help
+.PHONY: help install test smoke lint clean
 
 help:
-	@echo "Usage:"
-	@echo "  make install   Install package in editable mode with dev dependencies"
-	@echo "  make test      Run pytest smoke test and full test suite"
-	@echo "  make lint      Run ruff linter"
-	@echo "  make clean     Remove build artifacts and caches"
+	@echo "Available targets:"
+	@echo "  make install  Install the package in editable mode with dev dependencies"
+	@echo "  make test     Run the full pytest suite"
+	@echo "  make smoke    Run only smoke tests"
+	@echo "  make lint     Run ruff against source and tests"
+	@echo "  make clean    Remove local Python build, lint, and test artifacts"
 
 install:
-	pip install -e ".[dev]"
+	python -m pip install -e ".[dev]"
 
 test:
-	pytest tests/ -v --tb=short
+	python -m pytest
 
 smoke:
-	pytest tests/test_smoke.py -v
+	python -m pytest tests/test_smoke.py
 
 lint:
-	ruff check src/ tests/
+	python -m ruff check src tests
 
 clean:
-	find . -type f -name "*.pyc" -delete
-	find . -type d -name "__pycache__" -exec rm -rf {} +
-	find . -type d -name "*.egg-info" -exec rm -rf {} +
-	find . -type d -name ".pytest_cache" -exec rm -rf {} +
-	find . -type d -name ".ruff_cache" -exec rm -rf {} +
-	rm -rf dist/ build/ htmlcov/ .coverage coverage.xml
+	python -c "import pathlib, shutil; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').rglob('__pycache__')]"
+	python -c "import pathlib, shutil; [shutil.rmtree(p, ignore_errors=True) for p in pathlib.Path('.').rglob('*.egg-info')]"
+	python -c "import pathlib, shutil; [shutil.rmtree(p, ignore_errors=True) for p in ['build', 'dist', 'htmlcov', '.pytest_cache', '.ruff_cache']]"
+	python -c "import pathlib; [p.unlink(missing_ok=True) for p in [pathlib.Path('.coverage'), pathlib.Path('coverage.xml')]]"

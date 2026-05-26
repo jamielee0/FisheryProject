@@ -1,6 +1,6 @@
 """evaluation — Validation metrics, calibration, uncertainty, and ablation reporting.
 
-All required validation components (CLAUDE.md §5):
+All required validation components (AGENTS.md Validation Requirements):
   - Temporal holdout
   - Spatial holdout
   - Event holdout

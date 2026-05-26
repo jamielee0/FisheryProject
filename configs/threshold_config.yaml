@@ -1,0 +1,12 @@
+# PLACEHOLDER: threshold policy only; no threshold-derived features have been built.
+version: "0.1.0"
+status: "placeholder_no_threshold_features_constructed"
+threshold_table: "threshold_table.csv"
+species_traits: "species_traits.yaml"
+policy:
+  use_soft_thresholds: true
+  require_sensitivity_analysis: true
+  require_source_label: true
+  require_verified_status: true
+  forbid_generic_thresholds_as_species_specific_lethal_limits: true
+threshold_features: []

@@ -28,7 +28,7 @@
 # See also: threshold_table.csv for full row-level threshold data.
 # See also: endpoint_verification.md for endpoint status and conflicts.
 
-species:
+species_traits:
   blue_crab:
     common_name: "blue crab"
     scientific_name: "Callinectes sapidus"

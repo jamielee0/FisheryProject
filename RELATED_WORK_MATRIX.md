@@ -3,7 +3,7 @@
 
 **Source:** Populated from Prompt 3 Output 2 (2026-05-25).
 **Purpose:** Track prior literature relevant to methods, claims, and validation approaches.
-Claude Code should consult this before suggesting a new model or validation method to avoid
+Codex should consult this before suggesting a new model or validation method to avoid
 reinventing approaches or missing relevant prior art.
 
 **Evidence quality key:**

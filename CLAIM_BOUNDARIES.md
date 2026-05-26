@@ -4,7 +4,7 @@
 This file is **binding**. Every result narrative, manuscript section, figure caption, abstract,
 presentation slide, and code comment that generates outputs must be checked against it.
 
-Claude Code must read this file before writing any results text, manuscript text, or figure captions.
+Codex must read this file before writing any results text, manuscript text, or figure captions.
 
 ---
 
