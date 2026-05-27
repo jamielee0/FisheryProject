@@ -1,14 +1,5 @@
-"""evaluation — Validation metrics, calibration, uncertainty, and ablation reporting.
+"""Validation metrics, calibration, uncertainty, and ablation namespace.
 
-All required validation components (AGENTS.md Validation Requirements):
-  - Temporal holdout
-  - Spatial holdout
-  - Event holdout
-  - Ablations
-  - Calibration
-  - Uncertainty
-  - Leakage audit
-
-No headline result may be reported under random-split only.
-Random-split results must be labeled "exploratory, not externally validated."
+Required validation components are temporal holdout, spatial holdout, event
+holdout, ablations, calibration, uncertainty, and leakage audit.
 """

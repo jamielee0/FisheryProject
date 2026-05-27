@@ -1,7 +1,35 @@
 # PLACEHOLDER: no feature engineering has been implemented.
 version: "0.1.0"
 status: "placeholder_no_features_constructed"
-feature_groups: []
+
+lag_windows_days:
+  - 0
+  - 1
+  - 3
+  - 7
+  - 14
+  - 30
+  - 60
+  - 90
+
+feature_groups:
+  survey_design_static:
+    status: "placeholder"
+  tow_metadata:
+    status: "placeholder"
+  dynamic_water_quality:
+    status: "placeholder"
+    lag_windows_days_ref: "lag_windows_days"
+  species_specific_stress_exposure:
+    status: "placeholder"
+    threshold_policy_ref: "configs/threshold_config.yaml"
+  hydrology_meteorology_events:
+    status: "placeholder"
+    lag_windows_days_ref: "lag_windows_days"
+  land_cover_incremental_predictors:
+    status: "placeholder"
+    model_ladder_step: "Model D only"
+
 publication_risk_flags:
   - "environmental_interpolation_leakage"
   - "spatial_autocorrelation"

@@ -42,7 +42,9 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --tb=short"
+pythonpath = ["src"]
+addopts = "-v --tb=short --strict-config"
+cache_dir = "build/.pytest_cache"
 
 [tool.ruff]
 src = ["src", "tests"]

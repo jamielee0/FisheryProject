@@ -1,12 +1,44 @@
-# PLACEHOLDER: no models have been configured or run.
+# PLACEHOLDER: model ladder feature-group names only; no models have been configured or run.
 version: "0.1.0"
 status: "placeholder_no_models_run"
+
 model_ladder:
-  model_a: "static_survey_baseline"
-  model_b: "dynamic_water_quality_model"
-  model_c: "species_specific_stress_exposure_model"
-  model_d: "land_to_sea_incremental_predictor_model"
-  benchmark: "interpretable_boosted_tree_or_random_forest"
+  model_a:
+    label: "Model A"
+    description: "static_survey_baseline"
+    feature_groups:
+      - "survey_design_static"
+      - "tow_metadata"
+  model_b:
+    label: "Model B"
+    description: "dynamic_water_quality_model"
+    feature_groups:
+      - "survey_design_static"
+      - "tow_metadata"
+      - "dynamic_water_quality"
+  model_c:
+    label: "Model C"
+    description: "species_specific_stress_exposure_model"
+    feature_groups:
+      - "survey_design_static"
+      - "tow_metadata"
+      - "dynamic_water_quality"
+      - "species_specific_stress_exposure"
+  model_d:
+    label: "Model D"
+    description: "land_to_sea_incremental_predictor_model"
+    feature_groups:
+      - "survey_design_static"
+      - "tow_metadata"
+      - "dynamic_water_quality"
+      - "species_specific_stress_exposure"
+      - "hydrology_meteorology_events"
+      - "land_cover_incremental_predictors"
+  benchmark:
+    label: "Benchmark"
+    description: "interpretable_boosted_tree_or_random_forest"
+    restriction: "never_report_as_only_model"
+
 random_seed: null
 models: []
 logging_requirements:

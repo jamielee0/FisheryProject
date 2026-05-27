@@ -3,6 +3,9 @@
 This file is the active Codex instruction set for this repository and should be
 read before editing code, configuration, documentation, or tests.
 
+Preserve this readable Markdown structure when editing; do not collapse or
+weaken any scientific rule, species scope, validation rule, or claim boundary.
+
 ## Project Identity
 
 Full title: Trees to Seas: Dynamic Habitat Stress Exposure for North Carolina

@@ -1,6 +1,5 @@
-"""visualization — Figure and map generation.
+"""Figure and map generation namespace.
 
-Maps showing habitat states must include calibration and uncertainty.
-No map may be labeled decision-ready without both.
-See CLAIM_BOUNDARIES.md §forbidden claim #8.
+Maps showing habitat states must include calibration and uncertainty. No map
+may be labeled decision-ready without both.
 """

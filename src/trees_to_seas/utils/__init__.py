@@ -1,1 +1,1 @@
-"""utils — Shared utilities: config loading, logging, hashing, path resolution."""
+"""Shared utilities namespace for config loading, logging, hashing, and paths."""
