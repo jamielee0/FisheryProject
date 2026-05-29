@@ -3,6 +3,7 @@
 # All thresholds with verified=FALSE require primary literature check before hard-threshold use.
 # See CLAIM_BOUNDARIES.md: generic thresholds are NOT species-specific lethal thresholds.
 # See species_traits.yaml for structured threshold data; see endpoint_verification.md for endpoint status.
+# Task 4B tests intentionally skip comment lines and parse the rows below as CSV.
 species,life_stage,variable,threshold_type,value,units,source_label,evidence_type,confidence,model_use,verified,notes
 multispecies_program195,survey_endpoint,sampling_window,survey_months,"June and September",months,SEAMAP_Program195_NCDMF,expert/agency guideline,high,metadata_only,TRUE,"Use only for Program 195-aligned endpoints. Annual design: 54 grids/month in June and September."
 multispecies_program195,survey_endpoint,sampling_design,annual_grid_target,"54 grids/month; 108 grids/year",grids,SEAMAP_Program195_NCDMF,expert/agency guideline,high,metadata_only,TRUE,"Useful for effort and validation metadata."

@@ -1,7 +1,6 @@
 name: trees_to_seas
 channels:
   - conda-forge
-  - defaults
 dependencies:
   - python=3.11
   - numpy

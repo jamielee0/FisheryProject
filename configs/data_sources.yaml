@@ -1,7 +1,69 @@
-# PLACEHOLDER: no data sources have been ingested.
+# PLACEHOLDER: source slots only; no data sources have been ingested.
 version: "0.1.0"
 status: "placeholder_no_data_ingested"
-sources: []
+
+source_slots:
+  program195:
+    provider: "NCDMF/SEAMAP"
+    role: "core_biological_tow_level_survey"
+    expected_observation_type: "bottom_trawl"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  modmon:
+    provider: "UNC Institute of Marine Sciences / NCDEQ"
+    role: "dynamic_water_quality"
+    expected_observation_type: "surface_and_bottom_depth_must_be_confirmed"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  ferrymon:
+    provider: "UNC Institute of Marine Sciences"
+    role: "surface_dynamic_water_quality"
+    expected_observation_type: "surface_only"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  usgs_streamflow:
+    provider: "USGS NWIS"
+    role: "hydrologic_lag_covariates"
+    expected_observation_type: "freshwater_streamflow"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  usgs_water_quality:
+    provider: "USGS NWIS"
+    role: "water_quality_covariates"
+    expected_observation_type: "station_depth_must_be_confirmed"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  noaa_coops:
+    provider: "NOAA CO-OPS"
+    role: "water_level_salinity_temperature_station_covariates"
+    expected_observation_type: "station_depth_must_be_confirmed"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  noaa_climate:
+    provider: "NOAA NCEI or related climate products"
+    role: "meteorological_and_precipitation_covariates"
+    expected_observation_type: "atmospheric"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  drought_monitor:
+    provider: "U.S. Drought Monitor"
+    role: "drought_event_covariates"
+    expected_observation_type: "derived_weekly_drought_index"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  nlcd:
+    provider: "MRLC / USGS"
+    role: "land_cover_incremental_predictors"
+    expected_observation_type: "remote_sensing"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+  cdl:
+    provider: "USDA NASS Cropland Data Layer"
+    role: "crop_land_cover_incremental_predictors"
+    expected_observation_type: "remote_sensing"
+    ingest_status: "not_started"
+    required_documentation: "SOURCE_QUALITY_AUDIT.md"
+
 required_documentation:
   - "Document each source in SOURCE_QUALITY_AUDIT.md before ingestion."
   - "Record access date, provider, temporal coverage, spatial coverage, QA flags, and observation depth."

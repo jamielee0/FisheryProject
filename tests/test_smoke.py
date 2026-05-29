@@ -116,9 +116,12 @@ def test_threshold_table_csv_exists_parses_and_has_required_columns() -> None:
 
 def test_required_scientific_boundary_files_exist() -> None:
     required_files = [
-        "CLAIM_BOUNDARIES.md",
-        "endpoint_verification.md",
         "AGENTS.md",
+        "CLAIM_BOUNDARIES.md",
+        "PROJECT_CHARTER.md",
+        "endpoint_verification.md",
+        "SOURCE_QUALITY_AUDIT.md",
+        "RELATED_WORK_MATRIX.md",
     ]
     missing = [path for path in required_files if not (REPO_ROOT / path).exists()]
     assert not missing, f"Missing required project files: {missing}"

@@ -28,6 +28,62 @@
 # See also: threshold_table.csv for full row-level threshold data.
 # See also: endpoint_verification.md for endpoint status and conflicts.
 
+allowed_model_use_values:
+  - anomaly_or_percentile_predictor
+  - avoid_for_program195_primary
+  - avoid_for_program195_primary_model
+  - bloom_anomaly_covariate
+  - bloom/anomaly covariate, not direct species mortality threshold
+  - broad_occurrence_only
+  - cold_shock_sensitivity_only
+  - covariate_screen_not_species_threshold
+  - do_not_use_as_threshold
+  - do_not_use_program195
+  - do_not_use_until_confirmed
+  - early_life_hatchery_sensitivity
+  - egg_stage_only
+  - egg_stage_sensitivity_only
+  - expert_review_needed
+  - generic_screen
+  - generic_screen_only
+  - growth_molt_timing_only
+  - marginal_habitat_oyster
+  - metadata_only
+  - nursery_exposure_window
+  - oyster_module_only
+  - pre_survey_lag_exposure
+  - primary_continuous_predictor
+  - primary_fixed_endpoint
+  - primary_pending_unit_verification
+  - primary_soft_threshold
+  - primary_soft_threshold_generic
+  - productivity_covariate_not_stress
+  - productivity_covariate_not_stress_threshold
+  - provisional_primary
+  - provisional_primary_after_expert_confirmation
+  - qualitative_sedimentation_risk
+  - qualitative_zone_covariate
+  - recruit_exposure_window
+  - screen_or_anomaly_only
+  - seasonal_mask
+  - sensitivity_bounds
+  - sensitivity_only
+  - sensitivity_only_nonlocal
+  - sensitivity_only_temperature_dependent
+  - severe_exposure
+  - severe_growth_stress
+  - soft_association
+  - soft_growth_association
+  - soft_marginal_habitat_sensitivity
+  - soft_threshold
+  - spat_sensitivity_only
+  - spawning_egg_stage_only
+  - spawning_habitat_mask
+  - spawning_phenology
+  - spawning_window_mask
+  - stress_threshold_oyster
+  - thermal_rate_modeling_only
+
 species_traits:
   blue_crab:
     common_name: "blue crab"
