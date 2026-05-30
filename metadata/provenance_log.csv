@@ -1,1 +1,1 @@
-timestamp_utc,action,source_dataset,input_path_or_uri,output_path,code_ref,config_ref,data_hash,agent_or_user,notes
+source_name,source_category,provider,date_acquired,access_url_or_contact,access_restrictions,raw_path,file_format,years_covered,variables,row_count,checksum,notes
